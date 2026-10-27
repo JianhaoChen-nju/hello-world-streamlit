@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f3f3e9">
+  <meta name="description" content="一个简单的公开网页。打开它，向世界打个招呼。">
+  <title>你好，世界 · 一个公开的小站</title>
+  <style>
+    :root { color-scheme: light; --paper: #f3f3e9; --ink: #23382b; --green: #356c44; --line: #d2d7c9; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; }
+    .page { max-width: 1280px; min-height: 720px; margin: auto; padding: 28px 6vw 24px; display: flex; flex-direction: column; }
+    header { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-bottom: 24px; border-bottom: 1px solid var(--line); }
+    .brand { display: flex; align-items: center; gap: 11px; font-size: 15px; font-weight: 650; letter-spacing: .06em; }
+    .mark { width: 27px; height: 27px; border: 1px solid var(--green); border-radius: 50%; display: grid; place-items: center; font-size: 22px; }
+    .status { font-size: 12px; display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+    .dot { width: 6px; height: 6px; background: var(--green); border-radius: 50%; }
+    main { flex: 1; display: grid; grid-template-columns: 1.1fr 1fr; align-items: center; gap: 30px; padding: 64px 0 56px; }
+    .eyebrow { font: 11px ui-monospace, monospace; letter-spacing: .18em; margin: 0 0 28px; color: #5b6c5c; }
+    h1 { font-weight: 550; font-size: clamp(48px, 6.5vw, 82px); line-height: 1.17; letter-spacing: -.055em; margin: 0 0 24px; }
+    h1 span { color: var(--green); }
+    .intro { max-width: 350px; font-size: 16px; line-height: 1.9; color: #59665a; margin: 0 0 30px; }
+    button { border: 0; border-radius: 100px; padding: 17px 25px; background: var(--ink); color: #fff; font: inherit; font-size: 14px; cursor: pointer; display: inline-flex; align-items: center; gap: 26px; transition: background .2s, transform .2s; }
+    button:hover { background: var(--green); transform: translateY(-2px); }
+    button:active { transform: translateY(0); }
+    button:focus-visible { outline: 3px solid #8d9e54; outline-offset: 5px; }
+    #message { color: #526448; font-size: 13px; min-height: 42px; line-height: 1.6; margin: 18px 0 0; }
+    .scene { min-height: 380px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; }
+    .orbit { width: min(100%, 370px); aspect-ratio: 1; border: 1px solid #cbd2bd; border-radius: 50%; position: relative; display: grid; place-items: center; }
+    .orbit::before { content: ''; position: absolute; inset: 22px; border: 1px dashed #cbd2bd; border-radius: 50%; }
+    .planet { width: 72%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle at 30% 25%, #c8dc8f 0%, #8eaf67 38%, #4d7b4a 72%, #234730 100%); box-shadow: inset -13px -12px 30px #173b2526, 16px 25px 42px #496d321a; position: relative; overflow: hidden; transition: filter .7s, transform .7s; }
+    .planet::before, .planet::after { content: ''; position: absolute; inset: 15% -10%; border: 1px solid #e3efbd73; border-radius: 50%; transform: rotate(-30deg); }
+    .planet::after { inset: -5% 25%; }
+    .planet .equator { position: absolute; inset: 34% -10%; border: 1px solid #e3efbd73; border-radius: 50%; transform: rotate(-30deg); }
+    .orbit .satellite { position: absolute; width: 13px; height: 13px; background: #718c49; border: 4px solid var(--paper); box-sizing: content-box; border-radius: 50%; top: 14%; right: 12%; }
+    .hello-label { position: absolute; bottom: 26px; right: -4px; border: 1px solid var(--line); background: var(--paper); border-radius: 100px; padding: 12px 19px; font: 11px ui-monospace, monospace; letter-spacing: .07em; transform: rotate(-7deg); }
+    .scene-note { font: 10px ui-monospace, monospace; letter-spacing: .14em; color: #6d7d64; margin-top: 26px; }
+    .notes { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); padding-top: 25px; padding-bottom: 32px; gap: 28px; }
+    .note-label { display: block; font-size: 11px; color: #73806c; margin-bottom: 10px; }
+    .note-value { font-size: 14px; }
+    footer { border-top: 1px solid var(--line); padding-top: 18px; display: flex; justify-content: space-between; gap: 20px; font-size: 11px; color: #73806c; }
+    @media (max-width: 700px) { .page { padding: 22px 7vw; } header { padding-bottom: 20px; } main { grid-template-columns: 1fr; gap: 14px; padding: 44px 0 32px; } h1 { font-size: 56px; } .intro { max-width: 100%; } .scene { min-height: 0; padding: 4px 18px 20px; } .orbit { width: 260px; } .hello-label { right: -9px; bottom: 9px; } .notes { gap: 14px; padding-top: 22px; } .note-value { font-size: 12px; } footer { font-size: 10px; } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; } }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="brand"><span class="mark" aria-hidden="true">✳</span> 世界的一角</div>
+      <div class="status"><span class="dot" aria-hidden="true"></span> 网页已打开</div>
+    </header>
+    <main>
+      <section aria-labelledby="title">
+        <p class="eyebrow">A SMALL CORNER OF THE INTERNET</p>
+        <h1 id="title">你好，<br><span>世界。</span></h1>
+        <p class="intro">很高兴在这里遇见你。<br>这是一个小小的网页，也是一声来自互联网的问候。</p>
+        <button id="hello" type="button">向世界打个招呼 <span aria-hidden="true">↗</span></button>
+        <p id="message" role="status" aria-live="polite">点一下，让这个小星球回应你。</p>
+      </section>
+      <div class="scene" aria-hidden="true">
+        <div class="orbit">
+          <div class="planet" id="planet"><div class="equator"></div></div>
+          <span class="satellite"></span><div class="hello-label" id="label">HELLO, WORLD :)</div>
+        </div>
+        <div class="scene-note">SMALL PAGE. BIG WORLD.</div>
+      </div>
+    </main>
+    <div class="notes">
+      <div><span class="note-label">01 / 相遇</span><span class="note-value">看见这行字，就已抵达</span></div>
+      <div><span class="note-label">02 / 互动</span><span class="note-value">点击按钮，收到问候</span></div>
+      <div><span class="note-label">03 / 分享</span><span class="note-value">把这个网址发给朋友</span></div>
+    </div>
+    <footer><span>一个简单的网页 · 一次小小的连接</span><span>MADE FOR A HELLO</span></footer>
+  </div>
+  <script>
+    const messages = ['世界收到你的问候了。祝你今天有个好心情！', '又见面啦。愿今天发生一件让你微笑的小事。', '你好呀，远方的朋友。此刻，我们在同一颗星球上。', '把这份小小的好心情，也分享给一个朋友吧。'];
+    let count = 0;
+    document.getElementById('hello').addEventListener('click', () => {
+      document.getElementById('message').textContent = messages[count % messages.length];
+      count += 1;
+      document.getElementById('planet').style.filter = `hue-rotate(${(count % 4) * 18}deg)`;
+      document.getElementById('planet').style.transform = `rotate(${count * 12}deg)`;
+      document.getElementById('label').textContent = ['NICE TO MEET YOU!', 'HAVE A GOOD DAY :)', 'HELLO, FRIEND!', 'HELLO, WORLD :)'][(count - 1) % 4];
+    });
+  </script>
+</body>
+</html>
